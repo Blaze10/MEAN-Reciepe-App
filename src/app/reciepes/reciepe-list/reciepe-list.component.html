@@ -1,0 +1,34 @@
+<mat-progress-bar
+  mode="indeterminate" color="warn" *ngIf="isLoading">
+</mat-progress-bar>
+<p *ngIf="isLoading">Fetching reciepes...</p>
+<h1 class="mat-headline" *ngIf="!isLoading">Available reciepes</h1>
+<mat-accordion multi="true" *ngIf="!isLoading">
+  <mat-expansion-panel *ngFor="let reciepe of reciepesList">
+    <mat-expansion-panel-header>{{ reciepe.title }}</mat-expansion-panel-header>
+
+    <p *ngIf="reciepe.type === 'Non-Veg'" style="color: red">
+      Non Veg Dish
+    </p>
+
+    <p *ngIf="reciepe.type === 'veg'" style="color: green">
+      Veg Dish
+    </p>
+
+    Description: {{ reciepe.content }}
+
+
+    <p align="end">
+      Created on : {{reciepe.created_on | date}}
+    </p>
+
+    <div class="image-picker">
+      <img [src]="reciepe.imagePath" [alt]="reciepe.title">
+    </div>
+    <mat-action-row *ngIf="isUserAuthenticated && userId === reciepe.createdBy">
+      <button mat-button color="accent" type="button" routerLink="edit-reciepe/{{reciepe.id}}">EDIT</button>
+      <button mat-button color="warn" type="button" (click)="onDeleteReciepe(reciepe.id)">DELETE</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>
+<mat-paginator [pageSize]="currentPageSize" [pageSizeOptions]="pageSizeOptions" [length]="totalReciepes" (page)="onChangePage($event)"></mat-paginator>

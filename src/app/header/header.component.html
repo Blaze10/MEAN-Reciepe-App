@@ -1,0 +1,21 @@
+<mat-toolbar>
+  <a routerLink="/">Reciepes</a>
+  <span class="spacer"></span>
+  <ul>
+    <li *ngIf="isUserAuthenticated">
+      <a mat-button routerLink="reciepe-create" routerLinkActive="mat-accent">Create Reciepe</a>
+    </li>
+
+    <li *ngIf="!isUserAuthenticated">
+      <a mat-button routerLink="/auth/login" routerLinkActive="mat-accent">Login</a>
+    </li>
+
+    <li *ngIf="!isUserAuthenticated">
+      <a mat-button routerLink="/auth/signup" routerLinkActive="mat-accent">Sign up</a>
+    </li>
+
+    <li *ngIf="isUserAuthenticated">
+      <a mat-button type="button" (click)="onLogout();">Logout</a>
+    </li>
+  </ul>
+</mat-toolbar>

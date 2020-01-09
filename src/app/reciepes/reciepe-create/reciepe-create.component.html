@@ -1,0 +1,41 @@
+<mat-card>
+  <mat-spinner *ngIf="isLoading" [diameter]="40" style="margin: auto;" color="accent"></mat-spinner>
+  <p align="center" *ngIf="isLoading">Please wait...</p>
+  <form [formGroup]="reciepeForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading">
+    <mat-form-field appearance="outline">
+      <mat-label>Title</mat-label>
+      <input type="text" matInput placeholder="Title" formControlName="title">
+      <mat-error>
+        Title is required.
+      </mat-error>
+    </mat-form-field>
+
+    <button mat-stroked-button color="accent" type="button" (click)="filePicker.click()">
+      Select Image
+    </button>
+    <input type="file" #filePicker (change)="onPickedImage($event)">
+    <div class="image-picker" *ngIf="previewImage && previewImage != '' && reciepeForm.get('image').valid">
+      <img [src]="previewImage" [alt]="reciepeForm.get('title').value">
+    </div>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Description</mat-label>
+      <textarea matInput placeholder="Content" rows="10" formControlName="content"></textarea>
+      <mat-error>
+        Description is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Type</mat-label>
+      <mat-select formControlName="type">
+        <mat-option value="veg">Veg</mat-option>
+        <mat-option value="Non-Veg">Non-Veg</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button type="submit" mat-raised-button color="primary">
+      Save
+    </button>
+  </form>
+</mat-card>

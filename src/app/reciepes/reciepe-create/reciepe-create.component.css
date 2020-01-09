@@ -1,0 +1,17 @@
+mat-form-field,
+textarea {
+  width: 100%;
+}
+
+input[type="file"] {
+  visibility: hidden;
+}
+
+.image-picker {
+  height: 5rem;
+  margin: 1rem auto;
+}
+
+.image-picker img {
+  height: 100%;
+}
